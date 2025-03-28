@@ -1,0 +1,84 @@
+{% extends 'front/base.html' %}
+{% load static %}
+
+<title>{% block title %} PDF List {% endblock %}</title>
+{% block content %}
+
+    <div class="floating-gradient"></div>
+
+    <!-- PDF Viewer Hero Section -->
+    <section class="semester-hero">
+      <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-3" style="color: var(--primary);">
+          Web Development Practical File
+        </h1>
+        <p class="lead fs-5 text-muted">
+          HTML5 & CSS3 Complete Guide | Last updated: 15 Jan 2024
+        </p>
+      </div>
+    </section>
+  
+    <!-- PDF Viewer Section -->
+    <section class="container py-5 my-4">
+    {% for pdf in pdfs %}
+
+      <div class="pdf-meta-section">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <!-- <h3 class="mb-2"><a href="{{ pdf.pdf_file.url }}" target="_blank">{{ pdf.title }}</a></h3> -->
+            <h3 class="mb-2">{{ pdf.title }}</h3>
+            <p class="text-muted mb-0">Author: {{ pdf.author }} | Uploaded at: {{ pdf.uploaded_at }} | Size: {{ pdf.get_size_in_mb }}</p>
+          </div>
+          <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <!-- <button class="btn btn-primary me-2">
+              <i class="fas fa-download me-2"></i>Download
+            </button> -->
+            <a href="{{ pdf.pdf_file.url }}" target="_blank" class="text-decoration-none">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-file-pdf me-2"></i>View
+                </button>
+            </a>
+            <a href="{{ pdf.pdf_file.url }}" download="{{ pdf.title }}" class="text-decoration-none">
+                <button class="btn btn-primary mx-2">
+                  <i class="fas fa-download me-2"></i>Download
+                </button>
+            </a>
+            <button class="btn btn-secondary" onclick="window.open('{{ pdf.pdf_file.url }}', '_blank').print();">
+              <i class="fas fa-print me-2"></i>Print
+            </button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  
+    <!-- <div class="pdf-viewer-container">
+        <div class="pdf-toolbar">
+          <div class="pdf-controls">
+            <button class="pdf-control-btn">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="pdf-control-btn">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <div class="vr mx-2"></div>
+            <button class="pdf-control-btn">
+              <i class="fas fa-file-download"></i>
+            </button>
+            <button class="pdf-control-btn">
+              <i class="fas fa-print"></i>
+            </button>
+          </div>
+          <div class="page-info">
+            <span class="text-muted">Page 1 of 24</span>
+          </div>
+        </div>
+        <iframe 
+          class="pdf-iframe" 
+          src="./Jayant Pandey.pdf" 
+          allow="autoplay"
+        ></iframe>
+    </div> -->
+    </section>
+    
+{% endblock content %}
+    

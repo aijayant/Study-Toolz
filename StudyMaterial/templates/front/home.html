@@ -1,0 +1,120 @@
+{% extends 'front/base.html' %}
+{% load static %}
+
+<title>{% block title %} HomePage {% endblock %}</title>
+
+{% block content %}
+
+<!-- Message Block -->
+{% if messages %}
+<div class="notification-container position-absolute top-0 start-50 translate-middle-x w-75" style="z-index: 5;">
+    <div class="container alert alert-success fs-5 p-1 d-flex justify-content-around shadow align-items-center"
+        role="alert" style="margin-top:12vh;">
+        {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }} mb-0" {% endif %}>{{message}}</p>
+        {% endfor %}
+        <img id='cross' role="button" src="{% static 'images/close.png' %}" width="15px" height="15px"
+            style="float: right;">
+    </div>
+</div>
+
+<script>
+    var cross = document.getElementById('cross')
+    cross.addEventListener('click', () => {
+        document.getElementsByClassName('notification-container')[0].style.display = 'none';
+    })
+</script>
+{% endif %}
+<!-- End Message Block -->
+
+<!-- Hero Section with Search Bar -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold mb-4" style="color: var(--primary);">
+            Next-Gen Learning Experience
+        </h1>
+        <p class="lead fs-3 mb-4">
+            Gyanam Param Dhyeyamy
+        </p>
+        <!-- <form class="d-flex justify-content-center">
+            <input type="search" placeholder="Search courses, notes, and more...">
+        </form> -->
+    </div>
+</section>
+
+<!-- Notes Section -->
+<section class="container py-5 my-5">
+    <div class="edu-card p-4">
+        <h2 class="text-center mb-5 fw-bold">Study Material</h2>
+        <div class="row g-4">
+            {% for semester in semesters %}
+
+            <div class="col-md-4 col-lg-4">
+                <div class="edu-card p-4">
+                    <h3>{{ semester.name }}</h3>
+                    <!-- <p class="text-muted">Full-stack development fundamentals</p> -->
+                    <a href="{% url 'pdfApp:semester_detail' semester.id %}"><button class="btn btn-primary">View Notes</button></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Study Sound Section -->
+<!-- <section class="container py-5 my-5">
+    <div class="edu-card p-4">
+        <h2 class="text-center mb-5 fw-bold">Study Sound</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Focus Flow</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/focus1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Study Beats</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/beats1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Focus Flow</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/focus1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Study Beats</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/beats1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Focus Flow</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/focus1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="edu-card p-4">
+                    <h5>Study Beats</h5>
+                    <audio controls class="mt-3 w-100">
+                        <source src="audio/beats1.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> -->
+{% endblock content %}

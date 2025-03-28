@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+<link rel="stylesheet" href="{% static 'AuthApp/css/login.css' %}">
+    
+</head>
+<body>
+
+    {% if messages %}
+    <div class="notification-container position-absolute top-0 start-50 translate-middle-x w-75" style="z-index: 5;">
+      <div class="container alert alert-success fs-5 p-1 d-flex justify-content-around shadow align-items-center" role="alert" style="margin-top:12vh;">
+        {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }} mb-0"{% endif %}>{{message}}</p>
+        {% endfor %}
+        <img id='cross' role="button" src="{% static 'images/close.png' %}" width="15px" height="15px" style="float: right;">
+      </div>
+    </div>
+    <script>
+        var cross = document.getElementById('cross')
+        cross.addEventListener('click', ()=> {
+            document.getElementsByClassName('notification-container')[0].style.display = 'none';
+        })
+    </script>
+    {% endif %}
+
+    <main class="main-container">
+        <div class="container ">
+          <h1 class="login-heading">Log in</h1>
+            <div class="user-content-container user-profile-form-container">
+              <form action="" method="POST">
+                {% csrf_token %}
+                  <ul>
+                  <li class="name">
+                      <label for="username">Username:</label>
+                      <input type="text" name="username" id="username" class="username-input" placeholder="Username" required>
+                  </li>
+
+                  <li class="pass">
+                    <label for="">Password:</label>
+                    <input type="password" name = "password" id="password" class="pass-input" placeholder="Password" required>
+                  </li>
+       
+                    <button class="signup-button" type="submit"> Login </button>
+                    <p class="signup-link">Don't have an account?? <a href="{% url 'AuthApp:signup_form' %}">Sign Up</a></p>
+                  </ul>
+              </form>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

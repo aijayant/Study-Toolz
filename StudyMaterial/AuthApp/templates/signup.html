@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel="stylesheet" href="{% static 'AuthApp/css/signup.css' %}">
+</head>
+<body>
+
+    {% if messages %}
+    <div class="notification-container position-absolute top-0 start-50 translate-middle-x w-75" style="z-index: 5;">
+        <div class="container alert alert-success fs-5 p-1 d-flex justify-content-around shadow align-items-center" role="alert" style="margin-top:12vh;">
+          {% for message in messages %}
+          <p {% if message.tags %} class="{{ message.tags }} mb-0"{% endif %}>{{message}}</p>
+          {% endfor %}
+          <img id='cross' role="button" src="{% static 'images/close.png' %}" width="15px" height="15px" style="float: right;">
+        </div>
+      </div>
+    <script>
+        var cross = document.getElementById('cross')
+        cross.addEventListener('click', ()=> {
+            document.getElementsByClassName('notification-container')[0].style.display = 'none';
+        })
+    </script>
+    {% endif %}
+
+    <div class="auth-form-container">
+        <div class="auth-form-card">
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
+            <h1 class="signup-heading">SignUp</h1>
+            {{ form.username.label_tag }} {{ form.username }}{{ form.username.errors }}
+            {{ form.password1.label_tag }} {{ form.password1 }}{{ form.password1.errors }}
+            {{ form.password2.label_tag }} {{ form.password2 }}{{ form.password2.errors }}
+            <button type="submit">SignUp</button>
+            <p class="error">{{ form.non_field_errors }}</p>
+            <p class="login-link">Already have an account? <a href="{% url 'AuthApp:login_form' %}">Login</a></p>
+        </form>
+        </div>
+    </div>
+
+    <script>
+        var id_username = document.getElementById('id_username')
+        var id_password1 = document.getElementById('id_password1')
+        var id_password2 = document.getElementById('id_password2')
+      
+        id_username.placeholder = 'Username';
+        id_password1.placeholder = 'Password';
+        id_password2.placeholder = 'Confirm password';
+    </script>
+
+</body>
+</html>
+

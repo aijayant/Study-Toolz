@@ -1,0 +1,40 @@
+{% extends 'front/base.html' %}
+{% load static %}
+
+<title>{% block title %} Music List {% endblock %}</title>
+
+{% block content %}
+<section class="semester-hero">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3" style="color: var(--primary);">
+        Musics Section
+      </h1>
+      <p class="lead fs-5 text-muted">
+        HTML5 & CSS3 Complete Guide | Last updated: 15 Jan 2024
+      </p>
+    </div>
+</section>
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Music Collection</h2>
+    <div class="row">
+
+        {% for music in musics %}
+        <!-- Music Items -->
+        <div class="col-md-4 col-sm-2 col-6">
+            <div class="card music-card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ music.title }}</h5>
+                    <p class="card-text">{{ music.artist }}</p>
+                    <audio class="audio-player" controls>
+                        <source src="{{ music.music_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio tag.
+                    </audio>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock content %}
